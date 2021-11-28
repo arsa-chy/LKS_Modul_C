@@ -4,6 +4,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
+
+use App\Http\Controllers\NewProdukController;
+use App\Http\Controllers\NewKategoriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +26,27 @@ Route::get('/', function () {
 
 Route::get('/shop', [ProdukController::class, 'index'])->name('shop');
 
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('auth.registration');
+})->name('register');
+
+Route::get('/produk', [NewProdukController::class, 'index']);
+Route::get('/produk/delete/{id}', [NewProdukController::class, 'destroy'])->name('produkDelete');
+Route::get('/produk/create', [NewProdukController::class, 'create'])->name('produkCreate');
+Route::post('/produk/store', [NewProdukController::class, 'store'])->name('produkStore');
+Route::get('/produk/edit/{id}', [NewProdukController::class, 'edit'])->name('produkEdit');
+Route::put('/produk/update/{id}', [NewProdukController::class, 'update'])->name('produkUpdate');
+
+Route::get('/kategori/delete/{id}', [NewKategoriController::class, 'destroy'])->name('kategoriDelete');
+Route::get('/kategori/create', [NewKategoriController::class, 'create'])->name('kategoriCreate');
+Route::post('/kategori/store', [NewKategoriController::class, 'store'])->name('kategoriStore');
+Route::get('/kategori/edit/{id}', [NewKategoriController::class, 'edit'])->name('kategoriEdit');
+Route::put('/kategori/update/{id}', [NewKategoriController::class, 'update'])->name('kategoriUpdate');
+
 Route::prefix('/user')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [CustomerController::class, 'login'])->name('user.login');
@@ -38,22 +62,31 @@ Route::prefix('/user')->group(function () {
     });
 });
 
-Route::prefix('/produk')->middleware('auth')->group(function () {
-    Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
-    Route::post('/create', [ProdukController::class, 'store'])->name('produk.create');
+// Route::prefix('/produk')->middleware('auth')->group(function () {
+//     Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
+//     Route::post('/create', [ProdukController::class, 'store'])->name('produk.create');
 
-    Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
-    Route::put('/edit/{id}', [ProdukController::class, 'update'])->name('produk.update');
+//     Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
+//     Route::put('/edit/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
-    Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('produk.delete');
-});
+//     Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('produk.delete');
+// });
 
-Route::prefix('/kategori')->middleware('auth')->group(function () {
-    Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
-    Route::post('/store', [KategoriController::class, 'store'])->name('kategori.store');
+// Route::prefix('/kategori')->middleware('auth')->group(function () {
+//     Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
+//     Route::post('/store', [KategoriController::class, 'store'])->name('kategori.store');
 
-    Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
-    Route::put('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+//     Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+//     Route::put('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 
-    Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.delete');
-});
+//     Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.delete');
+// });
+
+// Route::prefix('/cart')->group(function () {
+//     Route::post('/add', [CartController::class, 'add'])->name('cart.add');
+//     Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+//     Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
+//     Route::get('/detail', [CartController::class, 'index'])->name('cart.detail');
+//     Route::post('/detail', [CartController::class, 'detail'])->name('cart.detail');
+//     Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+// });
