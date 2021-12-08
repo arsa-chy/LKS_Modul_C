@@ -37,11 +37,12 @@ class NewKategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = new NewKategori();
-        $kategori->namaKategori = $request->namaKategori;
+        $kategori = $request->validate([
+            'namaKategori' => 'required'
+        ]);
 
         NewKategori::create($kategori);
-        return redirect('admin.index');
+        return redirect()->route('produkShow');
     }
 
     /**
@@ -63,8 +64,7 @@ class NewKategoriController extends Controller
      */
     public function edit($id)
     {
-        $kategori = NewKategori::find($id);
-        return view('admin.kategori.edit', compact('kategori'));
+        //
     }
 
     /**
@@ -76,11 +76,12 @@ class NewKategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = new NewKategori();
-        $kategori->namaKategori = $request->namaKategori;
+        $kategori = $request->validate([
+            'namaKategori' => 'required'
+        ]);
 
         NewKategori::where('id', $id)->update($kategori);
-        return redirect('admin.index');
+        return redirect()->route('produkShow');
     }
 
     /**

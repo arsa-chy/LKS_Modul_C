@@ -17,8 +17,6 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
 
-  <link rel="icon" href="{{ asset('images/icons-login.png') }}" type="image/x-icon">
-
 </head>
 
 <body class="bg-dark">

@@ -62,8 +62,8 @@ class CustomerController extends Controller
     public function registerPost(Request $request)
     {
         $user = $request->validate([
-            'email' => 'required|email|unique:customers',
             'nama' => 'required',
+            'email' => 'required|email|unique:customers',
             'password' => 'required',
         ]);
 

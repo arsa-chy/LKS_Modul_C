@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\NewProdukController;
 use App\Http\Controllers\NewKategoriController;
@@ -20,21 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [Controller::class, 'index']);
+Route::post('/cart', [Controller::class, 'hitungJumlah'])->name('hitungJumlah');
 
-Route::get('/shop', [ProdukController::class, 'index'])->name('shop');
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('auth.registration');
-})->name('register');
-
-Route::get('/produk', [NewProdukController::class, 'index']);
+Route::get('/produk', [NewProdukController::class, 'index'])->name('produkShow');
 Route::get('/produk/delete/{id}', [NewProdukController::class, 'destroy'])->name('produkDelete');
 Route::get('/produk/create', [NewProdukController::class, 'create'])->name('produkCreate');
 Route::post('/produk/store', [NewProdukController::class, 'store'])->name('produkStore');
@@ -44,7 +34,6 @@ Route::put('/produk/update/{id}', [NewProdukController::class, 'update'])->name(
 Route::get('/kategori/delete/{id}', [NewKategoriController::class, 'destroy'])->name('kategoriDelete');
 Route::get('/kategori/create', [NewKategoriController::class, 'create'])->name('kategoriCreate');
 Route::post('/kategori/store', [NewKategoriController::class, 'store'])->name('kategoriStore');
-Route::get('/kategori/edit/{id}', [NewKategoriController::class, 'edit'])->name('kategoriEdit');
 Route::put('/kategori/update/{id}', [NewKategoriController::class, 'update'])->name('kategoriUpdate');
 
 Route::prefix('/user')->group(function () {

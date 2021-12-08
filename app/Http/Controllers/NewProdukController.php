@@ -42,16 +42,17 @@ class NewProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $produk = new NewProduk();
-        $produk->namaProduk = $request->namaProduk;
-        $produk->beratProduk = $request->beratProduk;
-        $produk->hargaProduk = $request->hargaProduk;
-        $produk->idKategori = $request->idKategori;
+        $produk = $request->validate([
+            'namaProduk' => 'required',
+            'beratProduk' => 'required',
+            'hargaProduk' => 'required',
+            'idKategori' => 'required'
+        ]);
 
         $produk['tanggalProduksi'] = Carbon::now();
 
         NewProduk::create($produk);
-        return redirect('admin.index');
+        return redirect()->route('produkShow');
     }
 
     /**
@@ -87,14 +88,15 @@ class NewProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produk = new NewProduk();
-        $produk->namaProduk = $request->namaProduk;
-        $produk->beratProduk = $request->beratProduk;
-        $produk->hargaProduk = $request->hargaProduk;
-        $produk->idKategori = $request->idKategori;
+        $produk = $request->validate([
+            'namaProduk' => 'required',
+            'beratProduk' => 'required',
+            'hargaProduk' => 'required',
+            'idKategori' => 'required'
+        ]);
 
         NewProduk::where('id', $id)->update($produk);
-        return redirect('admin.index');
+        return redirect()->route('produkShow');
     }
 
     /**
@@ -106,7 +108,6 @@ class NewProdukController extends Controller
     public function destroy($id)
     {
         NewProduk::destroy($id);
-
         return redirect()->back();
     }
 }

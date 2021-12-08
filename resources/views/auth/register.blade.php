@@ -1,9 +1,9 @@
 @extends('auth.auth')
 
-@section('title', 'Registration')
+@section('title', 'Register')
 
 @section('content')
-    <div class="card card-register mx-auto mt-5">
+    <div class="card card-login mx-auto mt-5">
       <div class="card-header">Register</div>
       <div class="card-body">
         <form action="{{ route('user.register') }}" method="post">
@@ -28,6 +28,9 @@
           </div>
           <button class="btn btn-primary btn-block" type="submit">Register</button>
         </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="{{ route('user.login') }}">Have an Account?</a>
+        </div>
       </div>
     </div>
 @endsection

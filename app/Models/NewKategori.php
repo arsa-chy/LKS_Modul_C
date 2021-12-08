@@ -10,6 +10,7 @@ class NewKategori extends Model
     use HasFactory;
     protected $table = 'kategoris';
     protected $guard = ['id'];
+    protected $fillable = ['namaKategori'];
 
     /**
      * Get all of the comments for the Kategori
